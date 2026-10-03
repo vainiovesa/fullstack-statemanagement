@@ -11,11 +11,11 @@ const AnecdoteForm = () => {
   }
 
   return (
-    <div data-testid="anecdote-form">
+    <div>
       <h2>create new</h2>
       <form onSubmit={addAnecdote}>
         <div>
-          <input name="new" />
+          <input data-testid="new" name="new" />
         </div>
         <button>create</button>
       </form>

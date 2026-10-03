@@ -5,7 +5,7 @@ const AnecdoteList = () => {
   const { vote } = useAnecdoteControls()
 
   return (
-    <div data-testid="anecdote-form">
+    <div>
       {anecdotes.toSorted((a1, a2) => a2.votes - a1.votes).map((anecdote) => (
         <div key={anecdote.id}>
           <div>{anecdote.content}</div>
