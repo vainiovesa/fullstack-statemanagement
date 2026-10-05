@@ -5,13 +5,15 @@ const useAnecdoteStore = create(set => ({
   anecdotes: [],
   filter: '',
   actions: {
-    vote: id =>
+    vote: async (id) => {
+      const anecdote = useAnecdoteStore.getState().anecdotes.find(a => a.id === id)
+      const updated = await anecdoteService.update(
+        id, { ...anecdote, votes: anecdote.votes + 1 }
+      )
       set(state => ({
-        anecdotes: state.anecdotes.map(anecdote =>
-          anecdote.id === id ? { ...anecdote, votes: anecdote.votes + 1 } : anecdote
-        )
-      })
-    ),
+        anecdotes: state.anecdotes.map(a => a.id === id ? updated : a)
+      }))
+    },
     create: async (content) => {
       const newAnecdote = await anecdoteService.createNew(content)
       set(state => ({ anecdotes: state.anecdotes.concat(newAnecdote) })) 
