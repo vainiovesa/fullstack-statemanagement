@@ -1,4 +1,4 @@
-import { useAnecdoteControls } from "./store"
+import { useAnecdoteControls } from "../store"
 
 const AnecdoteForm = () => {
   const { create } = useAnecdoteControls()

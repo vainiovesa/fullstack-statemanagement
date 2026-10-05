@@ -1,4 +1,4 @@
-import { useAnecdoteControls } from "./store"
+import { useAnecdoteControls } from "../store"
 
 const Filter = () => {
   const { setFilter } = useAnecdoteControls()

@@ -1,4 +1,4 @@
-import { useAnecdotes, useAnecdoteControls } from "./store"
+import { useAnecdotes, useAnecdoteControls } from "../store"
 
 const AnecdoteList = () => {
   const anecdotes = useAnecdotes()
