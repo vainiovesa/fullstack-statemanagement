@@ -1,12 +1,14 @@
-import { useAnecdoteControls } from '../store'
+import { useAnecdoteControls, useNotificationControls } from '../store'
 
 const AnecdoteForm = () => {
   const { create } = useAnecdoteControls()
+  const { setNotification } = useNotificationControls()
 
   const addAnecdote = (e) => {
     e.preventDefault()
     const anecdote = e.target.new.value
     create(anecdote)
+    setNotification(`You created '${anecdote}'`)
     e.target.reset()
   }
 
