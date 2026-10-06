@@ -1,8 +1,10 @@
 import { useAnecdotes, useAnecdoteControls, useNotificationControls } from "../store"
 
+const RemoveButton = ({ remove, id }) => <button onClick={() => remove(id)}>delete</button>
+
 const AnecdoteList = () => {
   const anecdotes = useAnecdotes()
-  const { vote } = useAnecdoteControls()
+  const { vote, remove } = useAnecdoteControls()
   const { setNotification } = useNotificationControls()
 
   const voteAction = ({ id, content }) => {
@@ -18,6 +20,7 @@ const AnecdoteList = () => {
           <div>
             has {anecdote.votes}
             <button onClick={() => voteAction(anecdote)}>vote</button>
+            {anecdote.votes === 0 && <RemoveButton remove={remove} id={anecdote.id}/>}
           </div>
         </div>
       ))}
