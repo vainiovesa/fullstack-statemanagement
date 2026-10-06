@@ -9,7 +9,7 @@ const AnecdoteList = () => {
 
   const voteAction = ({ id, content }) => {
     vote(id)
-    setNotification(`You voted '${content}'`)
+    setNotification(`you voted '${content}'`)
   }
 
   return (
