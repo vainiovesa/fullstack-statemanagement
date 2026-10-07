@@ -2,11 +2,12 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
 import useAnecdoteStore, { useAnecdoteControls, useAnecdotes } from '../store'
 
-beforeEach(async () => {
-  await useAnecdoteStore.getState().actions.initialize()
-})
 
 describe('anecdote store', () => {
+  beforeEach(async () => {
+    await useAnecdoteStore.getState().actions.initialize()
+  })
+
   it('anecdotes are initialized', () => {
     expect(useAnecdoteStore.getState().anecdotes.length).toBe(6)
   })
@@ -23,5 +24,35 @@ describe('anecdote store', () => {
       expect(anecdote.votes >= previousVotes)
       previousVotes = anecdote.votes
     }
+  })
+})
+
+describe('useAnecdotes filtering', () => {
+  const anecdotes = [
+    {
+      "content": "An anecdote.",
+      "id": "1",
+      "votes": 0
+    },
+    {
+      "content": "Bah, humbug!",
+      "id": "2",
+      "votes": 5
+    },
+  ]
+
+  beforeEach(() => {
+    useAnecdoteStore.setState({ anecdotes: anecdotes })
+  })
+
+  it('returns all anecdotes with no filter', () => {
+    const { result } = renderHook(() => useAnecdotes())
+    expect(result.current).toHaveLength(2)
+  })
+
+  it('filters anecdotes', () => {
+    useAnecdoteStore.setState({ anecdotes: anecdotes, filter: 'bah' })
+    const { result } = renderHook(() => useAnecdotes())
+    expect(result.current).toEqual([anecdotes[1]])
   })
 })
