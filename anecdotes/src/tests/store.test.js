@@ -25,6 +25,17 @@ describe('anecdote store', () => {
       previousVotes = anecdote.votes
     }
   })
+
+  it(`voting increases anecdote's number of votes`, async () => {
+    const { result: anecdotes } = renderHook(() => useAnecdotes())
+    const { result: controls } = renderHook(() => useAnecdoteControls())
+
+    const id = anecdotes.current[3].id
+    const votesAtStart = anecdotes.current[3].votes
+    await act(() => controls.current.vote(id))
+
+    expect(anecdotes.current.find(a => a.id === id).votes).toBe(votesAtStart + 1)
+  })
 })
 
 describe('useAnecdotes filtering', () => {
