@@ -21,6 +21,9 @@ export const useAnecdotes = () => {
       const anecdotes = queryClient.getQueryData(['anecdotes'])
       queryClient.setQueryData(['anecdotes'], anecdotes.concat(newAnecdote))
       notify(`anecdote '${newAnecdote.content}' added`)
+    },
+    onError: () => {
+      notify('too short anecdote, must have length 5 or more')
     }
   })
 
